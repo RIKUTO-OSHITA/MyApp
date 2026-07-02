@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:4173/index.html)",
+      "Bash(curl -s -m 5 -o /dev/null -w \"network check: %{http_code}\\\\n\" https://registry.npmjs.org/)",
+      "Bash(node check.js)"
+    ]
+  }
+}

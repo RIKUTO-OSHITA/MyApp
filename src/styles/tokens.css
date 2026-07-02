@@ -1,0 +1,16 @@
+:root {
+  --bg-main: #e6eff6;
+  --bg-gradient-start: #dceaf4;
+  --bg-gradient-end: #f0f6fb;
+  --surface: #f7fbff;
+  --surface-alt: #edf4fa;
+  --line: #b7cddd;
+  --line-soft: #d7e5ef;
+  --text-strong: #16354a;
+  --text-muted: #46657a;
+  --primary: #2d6f9f;
+  --primary-strong: #1f5a84;
+  --accent: #4aa3b4;
+  --danger: #c0576a;
+  --shadow: 0 18px 35px rgba(25, 66, 96, 0.16);
+}

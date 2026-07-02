@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day Planning Tool</title>
+    <link rel="stylesheet" href="./src/styles/tokens.css" />
+    <link rel="stylesheet" href="./src/styles/app.css" />
+  </head>
+  <body>
+    <div class="background-shapes" aria-hidden="true">
+      <div class="shape shape-a"></div>
+      <div class="shape shape-b"></div>
+    </div>
+
+    <main class="app-shell">
+      <header class="app-header">
+        <div>
+          <p class="kicker">Daily Planner</p>
+          <h1>一日のスケジューラ</h1>
+          <p class="subtitle">7:30〜18:00を30分単位でタスクを追加・編集・削除できます。</p>
+        </div>
+        <button id="add-task-button" class="btn-primary" type="button">+ タスク追加</button>
+      </header>
+
+      <section class="timeline-card" aria-label="day schedule">
+        <div class="timeline-head">
+          <h2 id="today-label">Today</h2>
+          <p id="task-count">0 tasks</p>
+        </div>
+        <div class="timeline-wrapper">
+          <div id="timeline-grid" class="timeline-grid" aria-label="30 minute timeline"></div>
+        </div>
+      </section>
+    </main>
+
+    <dialog id="task-dialog" class="task-dialog">
+      <form id="task-form" method="dialog" novalidate>
+        <h3 id="dialog-title">タスク追加</h3>
+        <input id="task-id" type="hidden" />
+
+        <label for="task-name">タスク名</label>
+        <input id="task-name" name="taskName" type="text" maxlength="80" required />
+
+        <div class="time-row">
+          <div>
+            <label for="start-time">開始時刻</label>
+            <input id="start-time" name="startTime" type="time" min="07:30" max="18:00" step="1800" required />
+          </div>
+          <div>
+            <label for="end-time">終了時刻</label>
+            <input id="end-time" name="endTime" type="time" min="07:30" max="18:00" step="1800" required />
+          </div>
+        </div>
+
+        <p id="form-error" class="form-error" role="alert"></p>
+
+        <menu class="dialog-actions">
+          <button type="button" id="delete-button" class="btn-danger">削除</button>
+          <button type="button" id="cancel-button" class="btn-ghost">キャンセル</button>
+          <button type="submit" class="btn-primary">保存</button>
+        </menu>
+      </form>
+    </dialog>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>
