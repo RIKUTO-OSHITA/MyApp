@@ -18,7 +18,7 @@
         <div>
           <p class="kicker">Daily Planner</p>
           <h1>一日のスケジューラ</h1>
-          <p class="subtitle">7:30〜18:00を30分単位でタスクを追加・編集・削除できます。</p>
+          <p class="subtitle">7:30〜18:00の範囲で、15分単位でタスクを追加・編集・削除できます。</p>
         </div>
         <button id="add-task-button" class="btn-primary" type="button">+ タスク追加</button>
       </header>
@@ -45,11 +45,11 @@
         <div class="time-row">
           <div>
             <label for="start-time">開始時刻</label>
-            <input id="start-time" name="startTime" type="time" min="07:30" max="18:00" step="1800" required />
+            <select id="start-time" name="startTime" required></select>
           </div>
           <div>
             <label for="end-time">終了時刻</label>
-            <input id="end-time" name="endTime" type="time" min="07:30" max="18:00" step="1800" required />
+            <select id="end-time" name="endTime" required></select>
           </div>
         </div>
 

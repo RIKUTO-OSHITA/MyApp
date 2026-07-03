@@ -5,8 +5,8 @@ import {
   SLOTS_PER_DAY,
   formatHourLabel,
   isHourSlot,
-  slotIndexToTime,
-  timeToSlotIndex
+  listDayTimes,
+  slotIndexToTime
 } from "./utils/timeSlots.js";
 
 const store = new TaskStore();
@@ -28,15 +28,34 @@ const deleteButton = document.querySelector("#delete-button");
 const addTaskButton = document.querySelector("#add-task-button");
 const cancelButton = document.querySelector("#cancel-button");
 
+function populateSelectOptions(selectEl, times, preferredValue) {
+  selectEl.innerHTML = "";
+  for (const time of times) {
+    const option = document.createElement("option");
+    option.value = time;
+    option.textContent = time;
+    selectEl.append(option);
+  }
+
+  if (preferredValue && times.includes(preferredValue)) {
+    selectEl.value = preferredValue;
+  } else if (times.length > 0) {
+    selectEl.value = times[0];
+  }
+}
+
+function refreshEndTimeOptions(preferredEndTime) {
+  const options = listDayTimes().filter((time) => time > startTimeInput.value);
+  populateSelectOptions(endTimeInput, options, preferredEndTime);
+}
+
 function openCreateDialog(defaultStart = "09:00") {
   dialogTitle.textContent = "タスク追加";
   taskIdInput.value = "";
   taskNameInput.value = "";
-  startTimeInput.value = defaultStart;
 
-  const startSlot = timeToSlotIndex(defaultStart);
-  const endSlot = Math.min(SLOTS_PER_DAY, startSlot + 1);
-  endTimeInput.value = slotIndexToTime(endSlot);
+  populateSelectOptions(startTimeInput, listDayTimes(), defaultStart);
+  refreshEndTimeOptions();
 
   deleteButton.style.visibility = "hidden";
   formError.textContent = "";
@@ -52,12 +71,18 @@ function openEditDialog(taskId) {
   dialogTitle.textContent = "タスク編集";
   taskIdInput.value = task.id;
   taskNameInput.value = task.name;
-  startTimeInput.value = task.startTime;
-  endTimeInput.value = task.endTime;
+
+  populateSelectOptions(startTimeInput, listDayTimes(), task.startTime);
+  refreshEndTimeOptions(task.endTime);
+
   deleteButton.style.visibility = "visible";
   formError.textContent = "";
   dialog.showModal();
 }
+
+startTimeInput.addEventListener("change", () => {
+  refreshEndTimeOptions(endTimeInput.value);
+});
 
 function createSlotRow(slotIndex) {
   const row = document.createElement("div");

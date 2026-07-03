@@ -1,9 +1,10 @@
 export const SLOT_MINUTES = 30;
+export const TIME_OPTION_MINUTES = 15;
 export const DAY_START_TIME = "07:30";
 export const DAY_END_TIME = "18:00";
 
 function isTimeFormat(value) {
-  return /^([01]\d|2[0-3]):(00|30)$/.test(value);
+  return /^([01]\d|2[0-3]):(00|15|30|45)$/.test(value);
 }
 
 function timeToMinutes(time) {
@@ -24,7 +25,7 @@ export const SLOTS_PER_DAY = (DAY_END_MINUTES - DAY_START_MINUTES) / SLOT_MINUTE
 
 export function timeToSlotIndex(time) {
   if (!isTimeFormat(time)) {
-    throw new Error("Time must be in HH:MM format aligned to 30 minutes");
+    throw new Error("Time must be in HH:MM format aligned to 15 minutes");
   }
 
   const minutes = timeToMinutes(time);
@@ -41,6 +42,14 @@ export function slotIndexToTime(slotIndex) {
   }
 
   return minutesToTime(DAY_START_MINUTES + slotIndex * SLOT_MINUTES);
+}
+
+export function listDayTimes() {
+  const times = [];
+  for (let minutes = DAY_START_MINUTES; minutes <= DAY_END_MINUTES; minutes += TIME_OPTION_MINUTES) {
+    times.push(minutesToTime(minutes));
+  }
+  return times;
 }
 
 export function formatHourLabel(slotIndex) {
@@ -61,7 +70,7 @@ export function normalizeTaskInput(input) {
     throw new Error("タスク名は必須です");
   }
   if (!isTimeFormat(startTime) || !isTimeFormat(endTime)) {
-    throw new Error("時刻は30分単位で入力してください");
+    throw new Error("時刻は15分単位で入力してください");
   }
 
   const startSlot = timeToSlotIndex(startTime);

@@ -31,3 +31,14 @@ test("invalid input scenario is rejected", () => {
     store.add({ name: "", startTime: "12:00", endTime: "12:30" });
   });
 });
+
+test("15-minute aligned time selections (from the combined time dropdown) are accepted", () => {
+  resetTaskIdsForTest();
+  const store = new TaskStore();
+
+  const task = store.add({ name: "Quick check-in", startTime: "13:15", endTime: "13:45" });
+
+  assert.equal(task.startTime, "13:15");
+  assert.equal(task.endTime, "13:45");
+  assert.equal(store.list().length, 1);
+});

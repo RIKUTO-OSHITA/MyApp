@@ -269,11 +269,14 @@ h1 {
   color: var(--text-muted);
 }
 
-#task-form input {
+#task-form input,
+#task-form select {
   border: 1px solid var(--line);
   border-radius: 8px;
   padding: 9px;
   font: inherit;
+  background: #fff;
+  color: var(--text-strong);
 }
 
 .time-row {
